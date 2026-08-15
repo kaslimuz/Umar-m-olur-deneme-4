@@ -31,8 +31,9 @@ jobs:
     - name: Buildozer'ı Yükle
       run: pip install --upgrade buildozer cython virtualenv
 
-    - name: APK Derleme İşlemini Başlat
-      run: buildozer -v android debug
+    -     - name: APK Derleme İşlemini Başlat
+      run: yes | buildozer -v android debug
+      
 
     - name: APK Dosyasını Kaydet
       uses: actions/upload-artifact@v4
