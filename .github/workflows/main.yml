@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-    - name: Kodu İndir
+    - name: Kodu Indir
       uses: actions/checkout@v4
 
     - name: Python Kurulumu
@@ -23,19 +23,18 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
-    - name: Gerekli Sistem Paketlerini Yükle
+    - name: Gerekli Sistem Paketlerini Yukle
       run: |
         sudo apt-get update
         sudo apt-get install -y build-essential git unzip zip python3-dev libffi-dev libssl-dev libltdl-dev zlib1g-dev
 
-    - name: Buildozer'ı Yükle
+    - name: Buildozer Yukle
       run: pip install --upgrade buildozer cython virtualenv
 
-    -     - name: APK Derleme İşlemini Başlat
+    - name: APK Derleme
       run: yes | buildozer -v android debug
-      
 
-    - name: APK Dosyasını Kaydet
+    - name: APK Kaydet
       uses: actions/upload-artifact@v4
       with:
         name: RoketOyunu-APK
