@@ -1,0 +1,42 @@
+name: Build APK
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Kodu İndir
+      uses: actions/checkout@v4
+
+    - name: Python Kurulumu
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Java Kurulumu
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    - name: Gerekli Sistem Paketlerini Yükle
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential git unzip zip python3-dev libffi-dev libssl-dev libltdl-dev zlib1g-dev
+
+    - name: Buildozer'ı Yükle
+      run: pip install --upgrade buildozer cython virtualenv
+
+    - name: APK Derleme İşlemini Başlat
+      run: buildozer -v android debug
+
+    - name: APK Dosyasını Kaydet
+      uses: actions/upload-artifact@v4
+      with:
+        name: RoketOyunu-APK
+        path: bin/*.apk
+        
